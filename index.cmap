@@ -12,7 +12,7 @@
 <img src="casa.jpg" usemap="#index" border=0>
 <map name="index">
   <area shape="rect" coords="71,85,1543,349" href="tetto.html"  alt="" title="">
-  <area shape="rect" coords="1405,361,1447,1390" href=""  alt="" title="">
+  <area shape="rect" coords="1405,361,1447,1390" href="parete.html"  alt="" title="">
   <area shape="rect" coords="737,832,1391,901" href="solaio.html"  alt="" title="">
 </map>
 <!-- End of CoffeeCup Image Map -->
