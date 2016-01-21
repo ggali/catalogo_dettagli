@@ -11,7 +11,7 @@
 <!-- Beginning of CoffeeCup Image Map -->
 <img src="travetti_appoggio.jpg" usemap="#travetti_appoggio" border=0>
 <map name="travetti_appoggio">
-  <area name="Colmo smussato" shape="rect" coords="14,64,314,862" href="colmo.html#colmo_smussato"  alt="" title="">
+  <area shape="rect" coords="14,64,314,862" href=""  alt="" title="">
   <area name="colmo_sbalzo" shape="rect" coords="348,68,644,864" href=""  alt="" title="">
   <area name="tacca" shape="rect" coords="714,70,1011,866" href=""  alt="" title="">
   <area name="1_tavoletta" shape="rect" coords="1071,64,1455,860" href=""  alt="" title="">
