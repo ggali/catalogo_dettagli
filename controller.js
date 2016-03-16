@@ -16,6 +16,14 @@ function intersect(a, b) {
 //         })
 //     );
 // }
+function chunk(arr, size) {
+  var newArr = [];
+  for (var i=0; i<arr.length; i+=size) {
+    newArr.push(arr.slice(i, i+size));
+  }
+  return newArr;
+}
+
 
 var myApp = angular.module('catalogoApp',['ngTagsInput']);
 
@@ -30,7 +38,6 @@ myApp.controller('searchController', ['$scope', '$http', function($scope, $http)
     console.log(response);
     $scope.model = response;
     // make some fixes on the model coming from trello
-
     $($scope.model.data.cards).each(function() {
       var card = this;
 
@@ -38,10 +45,12 @@ myApp.controller('searchController', ['$scope', '$http', function($scope, $http)
         return;
 
       card.tags = card.name.toLowerCase().split("-");
-      
 
       $(card.tags).each(function(index) {
         card.tags[index] = card.tags[index].trim();
+        var desc = card.desc.split("**");
+        console.log(desc);
+        card.nota = desc[2];
       });
     });
 
@@ -54,7 +63,6 @@ myApp.controller('searchController', ['$scope', '$http', function($scope, $http)
 
       var tags = [];
       $($scope.filteredCards).each(function() {
-        console.log("this", this);
         var card = this;
         if (card.tags) {
           $(card.tags).each(function() {
@@ -68,10 +76,18 @@ myApp.controller('searchController', ['$scope', '$http', function($scope, $http)
         $scope.additionalTags = tags;
       })
     },1);
-      
-
   })
 
+
+  $scope.loadItems = function(q) {
+    var ret = [];
+    $($scope.additionalTags).each(function() {
+      console.log(this.indexOf(q), this, q);
+      if (this.indexOf(q) != -1)
+        ret.push({text: this.toString()});
+    });
+    return ret;
+  }
 
   $scope.addTag = function(tag) {
     $scope.searchTags.push({text: tag});
