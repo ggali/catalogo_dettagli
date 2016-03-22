@@ -1,20 +1,25 @@
-<html>
+<html ng-app="catalogoApp">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="http://v4.pingendo.com/assets/bootstrap/themes/default.css" rel="stylesheet" type="text/css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script src="ng-tags-input.min.js"></script>
+  <script src="controller.js"></script>
+
 </head>
 
-<body>
+<body  ng-controller="productController">
   <div class="section">
     <div class="container text-xs-center">
       <div class="row">
-        <div class="col-md-8 ">
-          <h1 class="display-4 m-y-1 text-warning text-xs-left">Logo - Catalogo prodotti</h1>
+        <div class="col-md-12 ">
+          <h1 class="display-4 m-y-1 text-warning text-xs-center">Catalogo prodotti</h1>
         </div>
-        <div class="col-md-3  col-lg-offset-1"><a href="#" class="btn btn-block btn-lg btn-primary-outline m-y-2">Trello link</a></div>
+        <!--<div class="col-md-3  col-lg-offset-1"><a href="#" class="btn btn-block btn-lg btn-primary-outline m-y-2">Trello link</a></div>-->
       </div>
     </div>
   </div>
@@ -24,8 +29,8 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-block">
-              <h5 class="card-title m-y-1">Tags (titolo trello)</h5>
-              <p class="">Appoggio travetti su colmo smussato. (descrizione Trello)</p>
+              <h5 class="card-title m-y-1">{{card.name}}</h5>
+              <p class="">{{card.nota}}</p>
 
             </div>
             <img class="card-img-top center-block img-fluid" src="http://v4.pingendo.com/assets/photos/realestate/cover-1.jpg" alt="Card image">
