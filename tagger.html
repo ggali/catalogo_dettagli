@@ -13,18 +13,13 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12 p-y-3 text-xs-center">
-          <h1 class="display-4 text-xs-center">Tagger</h1>
           <div class="btn-group btn-group-lg p-y-2">
-            <a href="#" class="btn btn-lg btn-warning" data-toggle="button">Upload dett. singolo</a>
-            <a href="#" class="btn btn-lg btn-warning">Upload dett. insieme</a>
-            <a href="#" class="btn btn-lg btn-warning">Upload foto</a>
+            <a href="#" class="btn btn-lg btn-warning" data-toggle="button">Dettaglio</a>
+            <a href="#" class="btn btn-lg btn-warning">Insieme</a>
+            <a href="#" class="btn btn-lg btn-warning">Foto</a>
 
           </div>
           <form class="text-xs-center">
-            <div class="form-group">
-              <label></label>
-              <input type="email" class="form-control" placeholder="Add tags">
-            </div>
             <div class="form-group">
               <label></label>
               <input type="email" class="form-control" placeholder="Folder dati">
@@ -37,7 +32,12 @@
               <label></label>
               <input type="email" class="form-control" placeholder="Nota privata">
             </div>
-          </form><a href="#" class="btn btn-block btn-primary">Salva</a>
+            <div class="form-group">
+              <input ng-blur="showTagHelper = false" ng-focus="showTagHelper = true" type="email" class="form-control" placeholder="Add tags">
+              <label style="position:relative;float:right;top:-28px;left:-10px;"><i ng-show="!editable" class="fa fa-lock pull-rigth" ng-click="toggleEditable()"></i>
+            <i ng-show="editable" class="fa fa-unlock pull-rigth" ng-click="toggleEditable()"></i></label>
+            </div>
+          </form>
 
         </div>
       </div>
@@ -74,19 +74,12 @@
         </div>
       </div>-->
 
-      <div class="row">
-        <div class="col-xs-12">
-          <h3>Tags&nbsp;
-            <i ng-show="!editable" class="fa fa-lock" ng-click="toggleEditable()"></i>
-            <i ng-show="editable" class="fa fa-unlock" ng-click="toggleEditable()"></i>
-          </h3>
-        </div>
-      </div>
-      <div class="row">
+      <div class="row" ng-if="showTagHelper || editable">
         <div class="col-md-2" ng-repeat="(key, group) in tags">
           <div class="card text-xs-left">
             <div class="card-block">
-              <h5 class="card-title" contenteditable ng-model="group.name" ng-enter="renameGroup('tags/' + key + '/name', group.name)"></h5>
+              <h5 ng-if="editable" class="card-title" contenteditable ng-model="group.name" ng-enter="renameGroup('tags/' + key + '/name', group.name)"></h5>
+              <h5 ng-if="!editable" class="card-title" >{{group.name}}</h5>
               <ol class="list-unstyled">
                 <li ng-repeat="tag in group.tags" style="width:100%">
                   &nbsp;{{tag}}
