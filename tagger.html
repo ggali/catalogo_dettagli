@@ -1,0 +1,122 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="http://v4.pingendo.com/assets/bootstrap/themes/default.css" rel="stylesheet" type="text/css">
+  
+</head>
+
+<body ng-app="catalogoApp" ng-controller="taggerController">
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 p-y-3 text-xs-center">
+          <h1 class="display-4 text-xs-center">Tagger</h1>
+          <div class="btn-group btn-group-lg p-y-2">
+            <a href="#" class="btn btn-lg btn-warning" data-toggle="button">Upload dett. singolo</a>
+            <a href="#" class="btn btn-lg btn-warning">Upload dett. insieme</a>
+            <a href="#" class="btn btn-lg btn-warning">Upload foto</a>
+
+          </div>
+          <form class="text-xs-center">
+            <div class="form-group">
+              <label></label>
+              <input type="email" class="form-control" placeholder="Add tags">
+            </div>
+            <div class="form-group">
+              <label></label>
+              <input type="email" class="form-control" placeholder="Folder dati">
+            </div>
+            <div class="form-group">
+              <label></label>
+              <input type="email" class="form-control" placeholder="Nota pubblica">
+            </div>
+            <div class="form-group">
+              <label></label>
+              <input type="email" class="form-control" placeholder="Nota privata">
+            </div>
+          </form><a href="#" class="btn btn-block btn-primary">Salva</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container-fluid">
+      <!--<div class="row">
+        <div class="col-md-12">
+          <h5>Tag utilizzati in prodotti che contengono i tag sopra inseriti</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-2">
+          <ul class="">
+            <li>One</li>
+            <li>Two</li>
+            <li>Three</li>
+          </ul>
+        </div>
+        <div class="col-lg-2                               ">
+          <ul class="" draggable="true">
+            <li>One</li>
+            <li>Two</li>
+            <li>Three</li>
+          </ul>
+        </div>
+        <div class="col-lg-2 ">
+          <ul class="" draggable="true">
+            <li>One</li>
+            <li>Two</li>
+            <li>Three</li>
+          </ul>
+        </div>
+      </div>-->
+
+      <div class="row">
+        <div class="col-xs-12">
+          <h3>Tags&nbsp;
+            <i ng-show="!editable" class="fa fa-lock" ng-click="toggleEditable()"></i>
+            <i ng-show="editable" class="fa fa-unlock" ng-click="toggleEditable()"></i>
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2" ng-repeat="(key, group) in tags">
+          <div class="card text-xs-left">
+            <div class="card-block">
+              <h5 class="card-title" contenteditable ng-model="group.name" ng-enter="renameGroup('tags/' + key + '/name', group.name)"></h5>
+              <ol class="list-unstyled">
+                <li ng-repeat="tag in group.tags" style="width:100%">
+                  &nbsp;{{tag}}
+                  <i ng-show="editable" class="fa fa-trash pull-right" ng-click="toggleEditable()"></i>
+                </li>
+                <li ng-show="editable" class="p-t-1">
+                  <input type="text" ng-model="input" ng-enter="createTag('tags/' + key + '/tags', input)" style="background-color:rgba(0,0,0,0.3);border:0px;">
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div ng-show="editable" class="col-md-2" >
+          <div class="card text-xs-left">
+            <div class="card-block">
+              <h1>+</h1>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.0.0/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+  <script src="ng-tags-input.min.js"></script>
+  <script src="tagger.js"></script>
+
+</body>
+
+</html>
