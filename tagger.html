@@ -14,7 +14,7 @@
       <div class="row">
         <div class="col-md-12 p-y-3 text-xs-center">
           <div class="btn-group btn-group-lg p-y-2">
-            <a href="#" class="btn btn-lg btn-warning" data-toggle="button">Dettaglio</a>
+            <a href="#" class="btn btn-lg btn-warning active" data-toggle="button">Dettaglio</a>
             <a href="#" class="btn btn-lg btn-warning">Insieme</a>
             <a href="#" class="btn btn-lg btn-warning">Foto</a>
 
@@ -38,43 +38,11 @@
             <i ng-show="editable" class="fa fa-unlock pull-rigth" ng-click="toggleEditable()"></i></label>
             </div>
           </form>
-
         </div>
       </div>
     </div>
-  </div>
-  <div class="section">
-    <div class="container-fluid">
-      <!--<div class="row">
-        <div class="col-md-12">
-          <h5>Tag utilizzati in prodotti che contengono i tag sopra inseriti</h5>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-2">
-          <ul class="">
-            <li>One</li>
-            <li>Two</li>
-            <li>Three</li>
-          </ul>
-        </div>
-        <div class="col-lg-2                               ">
-          <ul class="" draggable="true">
-            <li>One</li>
-            <li>Two</li>
-            <li>Three</li>
-          </ul>
-        </div>
-        <div class="col-lg-2 ">
-          <ul class="" draggable="true">
-            <li>One</li>
-            <li>Two</li>
-            <li>Three</li>
-          </ul>
-        </div>
-      </div>-->
-
-      <div class="row" ng-if="showTagHelper || editable">
+    <div class="container-fluid" ng-if="showTagHelper || editable">
+      <div class="row" >
         <div class="col-md-2" ng-repeat="(key, group) in tags">
           <div class="card text-xs-left">
             <div class="card-block">
@@ -99,8 +67,10 @@
             </div>
           </div>
         </div>
-
     </div>
+  </div>
+  <div class="container align-center">
+  <a class="btn btn-primary">Salva</a>
   </div>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
