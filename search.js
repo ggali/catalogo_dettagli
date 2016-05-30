@@ -77,6 +77,7 @@ myApp.controller('searchController', ['$scope', '$http', function($scope, $http)
   $scope.$watchCollection('searchTags', function() { 
     
     setTimeout(function() {
+
       if ($scope.searchTags.length == 0) {
         $scope.$apply(function() {
           $scope.tags = $scope.allTags;
@@ -138,6 +139,8 @@ myApp.controller('searchController', ['$scope', '$http', function($scope, $http)
 
     // if (!$scope.searchTags || !card.tags)
     //   return true;
+    if (!card.tags)
+      return true;
 
     return (intersect( $scope.searchTags, card.tags).length == $scope.searchTags.length );
   };

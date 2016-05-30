@@ -9,14 +9,28 @@
   <link href="ng-tags-input.bootstrap.min.css" rel="stylesheet" type="text/css">
   <style>
     tags-input .fa {
-        position: absolute;
-        right: 10px;
-        top: 8px;
+      position: absolute;
+      right: 10px;
+      top: 8px;
     }
   </style>
+
 </head>
 
 <body ng-app="catalogoApp" ng-controller="taggerController">
+  <nav class="bg-faded bg-warning navbar navbar-dark navbar-full">
+    <a class="navbar-brand" href="#">Catalogo prodotti</a>
+    <ul class="nav navbar-nav pull-right">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Inserisci</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Cerca</a>
+      </li>
+
+
+    </ul>
+  </nav>
   <div class="section">
     <div class="container">
       <div class="row">
@@ -25,54 +39,53 @@
             <a href="#" class="btn btn-lg btn-warning active" data-toggle="button">Dettaglio</a>
             <a href="#" class="btn btn-lg btn-warning disabled">Insieme</a>
             <a href="#" class="btn btn-lg btn-warning disabled">Foto</a>
-
           </div>
-          <form class="text-xs-center">
+          <form class="text-xs-left">
             <div class="form-group">
-              <label></label>
-              <input class="form-control" ng-model="newOne.id" placeholder="ID">
+              <label>ID</label>
+              <input class="form-control" ng-model="newOne.id" placeholder="">
             </div>
             <div class="form-group">
-              <label></label>
-              <input class="form-control" ng-model="newOne.folder" placeholder="Folder dati">
+              <label>Folder dati</label>
+              <input class="form-control" ng-model="newOne.folder" placeholder="">
             </div>
             <div class="form-group">
-              <label></label>
-              <input class="form-control" ng-model="newOne.notaPubblica" placeholder="Nota pubblica">
+              <label>Nota pubblica</label>
+              <input class="form-control" ng-model="newOne.notaPubblica" placeholder="">
             </div>
             <div class="form-group">
-              <label></label>
-              <input class="form-control" ng-model="newOne.notaPrivata" placeholder="Nota privata">
+              <label>Nota privata</label>
+              <input class="form-control" ng-model="newOne.notaPrivata" placeholder="">
+            </div>
+            <div class="form-group">
+              <label>PDF</label>
+              <input id="pdf" type="file" class="form-control" placeholder="Tags">
             </div>
             <div class="form-group" style="height:35px">
-              <tags-input ng-blur="showTagHelper = false" ng-focus="showTagHelper = true" placeholder="Tags" ng-model="newOne.tags" replace-spaces-with-dashes="false">
-              <!--<auto-complete source="loadItems($query)"></auto-complete>-->
+              <label>Tags</label>
+              <tags-input ng-blur="showTagHelper = false" ng-focus="showTagHelper = true" placeholder="Tags" ng-model="newOne.tags" replace-spaces-with-dashes="false" class="form-control">
+                <!--<auto-complete source="loadItems($query)"></auto-complete>-->
                 <i ng-show="!editable" class="fa fa-lock pull-rigth" ng-click="toggleEditable()"></i>
                 <i ng-show="editable" class="fa fa-unlock pull-rigth" ng-click="toggleEditable()"></i>
               </tags-input>
-              <!--<input   class="form-control" placeholder="Tags">-->
-              <label style="position:relative;float:right;top:-28px;left:-10px;">
-                
-              </label>
+              <!--<input class="form-control" placeholder="Tags">-->
             </div>
+             
           </form>
         </div>
       </div>
     </div>
     <div class="container-fluid" ng-if="showTagHelper || editable">
-      <div class="row" >
+      <div class="row">
         <div class="col-md-2" ng-repeat="(key, group) in tags">
           <div class="card text-xs-left">
             <div class="card-block">
               <i ng-if="editable" class="fa fa-trash pull-right" ng-click="delete('tags/' + key)"></i>
-
-              <h5 ng-if="editable" class="card-title" contenteditable ng-model="group.name" ng-enter="renameGroup('tags/' + key + '/name', group.name)">
-              </h5>
-              <h5 ng-if="!editable" class="card-title" >{{group.name}}</h5>
-
+              <h5 ng-if="editable" class="card-title" contenteditable="" ng-model="group.name" ng-enter="renameGroup('tags/' + key + '/name', group.name)"></h5>
+              <h5 ng-if="!editable" class="card-title">{{group.name}}</h5>
               <ol class="list-unstyled">
-                <li ng-repeat="(k, tag) in group.tags" ng-mousedown="addTag(tag, $event)" style="width:100%">
-                  &nbsp;{{tag}}
+                <li ng-repeat="(k, tag) in group.tags" style="width:100%">&nbsp;
+                  <a ng-mousedown="addTag(tag, $event)">{{tag}}</a>
                   <i ng-show="editable" class="fa fa-trash pull-right" ng-click="delete('tags/' + key + '/tags/' + k)"></i>
                 </li>
                 <li ng-show="editable" class="p-t-1">
@@ -82,20 +95,30 @@
             </div>
           </div>
         </div>
-        <div ng-show="editable" class="col-md-2" >
+        <div ng-show="editable" class="col-md-2">
           <i class="fa fa-plus fa-3x m-a-2" ng-click="addGroup()"></i>
         </div>
+      </div>
     </div>
+    <div class="container text-xs-center m-t-1">
+      <a ng-show="!busy" class="btn btn-lg btn-success" ng-click="save()">Salva</a>
+      <a ng-show="busy" class="btn btn-lg btn-success disabled" ">Salvando</a>
+       
+    </div>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.0.0/firebase.js"></script>
+    <script src="ng-tags-input.min.js"></script>
+    <script src="https://npmcdn.com/pdfjs-dist@1.5.279"></script>
+    <script src="edit.js"></script>
+
   </div>
-  <div class="container text-xs-center">
-  <a class="btn btn-lg btn-primary" ng-click="save()">Salva</a>
-  </div>
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.0.0/firebase.js"></script>
-  <script src="ng-tags-input.min.js"></script>
-  <script src="edit.js"></script>
+
+
+
+
+
 
 </body>
 
