@@ -25,7 +25,8 @@ myApp.controller('taggerController', ['$scope', '$http', function($scope, $http)
   $scope.newOne.folder = "";
   $scope.newOne.notaPubblica = "";
   $scope.newOne.notaPrivata = "";
-  $scope.newOne.tags = "";
+  $scope.newOne.tags = [];
+
 
   $scope.addTag = function(tag,e ) {
     $scope.newOne.tag = $scope.newOne.tag + tag;
@@ -38,10 +39,15 @@ myApp.controller('taggerController', ['$scope', '$http', function($scope, $http)
     },1);
   }
 
-  $scope.deleteTag = function(ref, tag) {
-
+  $scope.delete = function(ref) {
     setTimeout(function() {
       firebase.database().ref(ref).remove();
+    },1);
+  }
+
+  $scope.addGroup = function() {
+    setTimeout(function() {
+      firebase.database().ref("/tags").push({name:"nuovo", tags: []})
     },1);
   }
 
@@ -53,8 +59,8 @@ myApp.controller('taggerController', ['$scope', '$http', function($scope, $http)
 
   $scope.save = function() {
     alert("saved");
+    $scope.newOne.tags = $scope.newOne.tags.map(function(tag) { return tag.text; });
     firebase.database().ref('/details').push($scope.newOne);
-    
   }
 
   $scope.toggleEditable = function() {
