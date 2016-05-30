@@ -53,9 +53,9 @@
               <h5 ng-if="editable" class="card-title" contenteditable ng-model="group.name" ng-enter="renameGroup('tags/' + key + '/name', group.name)"></h5>
               <h5 ng-if="!editable" class="card-title" >{{group.name}}</h5>
               <ol class="list-unstyled">
-                <li ng-repeat="tag in group.tags" ng-mousedown="addTag(tag, $event)" style="width:100%">
+                <li ng-repeat="(k, tag) in group.tags" ng-mousedown="addTag(tag, $event)" style="width:100%">
                   &nbsp;{{tag}}
-                  <i ng-show="editable" class="fa fa-trash pull-right" ng-click="deleteTag()"></i>
+                  <i ng-show="editable" class="fa fa-trash pull-right" ng-click="deleteTag('tags/' + key + '/tags/' + k, tag)"></i>
                 </li>
                 <li ng-show="editable" class="p-t-1">
                   <input type="text" ng-model="input" ng-enter="createTag('tags/' + key + '/tags', input)" style="background-color:rgba(0,0,0,0.3);border:0px;">

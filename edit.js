@@ -38,9 +38,10 @@ myApp.controller('taggerController', ['$scope', '$http', function($scope, $http)
     },1);
   }
 
-  $scope.deleteTag = function(ref, newVal) {
+  $scope.deleteTag = function(ref, tag) {
+
     setTimeout(function() {
-      firebase.database().ref(ref).push(newVal);
+      firebase.database().ref(ref).remove();
     },1);
   }
 
