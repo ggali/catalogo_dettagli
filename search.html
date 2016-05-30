@@ -1,0 +1,79 @@
+<html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="http://v4.pingendo.com/assets/bootstrap/themes/default.css" rel="stylesheet" type="text/css">
+  <link href="ng-tags-input.min.css" rel="stylesheet" type="text/css">
+  <link href="ng-tags-input.bootstrap.min.css" rel="stylesheet" type="text/css">
+
+</head><body ng-app="catalogoApp">
+  <div class="section" ng-controller="searchController">
+    <div class="container-fluid">
+      <div class="row m-y-2" style="height:35px">
+        <div class="col-md-12">
+          <tags-input placeholder="Inserisci tags" ng-model="searchTags" replace-spaces-with-dashes="false">
+            <!--<auto-complete source="loadItems($query)"></auto-complete>-->
+          </tags-input>
+        </div>
+      </div>
+     
+
+
+      <div class="col-md-2" ng-repeat="(key, group) in tags">
+        <div class="card text-xs-left">
+          <div class="card-block">
+            <h5 ng-if="editable" class="card-title" contenteditable ng-model="group.name" ng-enter="renameGroup('tags/' + key + '/name', group.name)"></h5>
+            <h5 ng-if="!editable" class="card-title" >{{group.name}}</h5>
+            <ol class="list-unstyled">
+              <li ng-repeat="tag in group.tags"  style="width:100%">
+                &nbsp;<a ng-mousedown="addTag(tag, $event)">{{tag}}</a>
+                <i ng-show="editable" class="fa fa-trash pull-right"></i>
+              </li>
+              <li ng-show="editable" class="p-t-1">
+                <input type="text" ng-model="input" style="background-color:rgba(0,0,0,0.3);border:0px;">
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+
+
+     <!-- <div class="row" ng-show="filteredCards.length > 1">
+        <div class="col-md-2" ng-repeat="tag in additionalTags | orderBy:'toString()'">
+          <a ng-click="addTag(tag)">{{tag}}</a>
+        </div>
+      </div>-->
+      <div class="row">
+        <div class="col-md-12">
+          <hr class="">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3" ng-repeat="card in (filteredCards = (cards | filter:filterCards))">
+          <div class="card"><a ng-href="prodotto.html?id={{card.id}}">
+          <img class="card-img-top center-block img-fluid" src="https://unsplash.imgix.net/photo-1423683249427-8ca22bd873e0?w=1024&amp;q=50&amp;fm=jpg&amp;s=5e57c661d0f772ce269188a6f5325708">
+            <div class="card-block">
+
+              <h6 class="card-title" id="colmo_smussato">{{card.name}}</h6>
+              <p class="">{{card.tags}}</p>
+            </div>
+                
+            <div class="card-block"></div></a>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.0.0/firebase.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script src="ng-tags-input.min.js"></script>
+  <script src="search.js"></script>
+
+</body></html>

@@ -1,0 +1,19 @@
+{
+	"admins" : [
+		"gabriele.galimberti@galimberti.eu"
+	],
+	"tags" : [
+		{"name" : "gruppo1", "tags" : ["a","b","c"]},
+		{"name" : "gruppo2", "tags" : ["d","e","f"]}
+	],
+	"details" : {
+		"finestra1" : {
+			"descrizione" : "finestra1 lorem",
+			"tags" : ["a","b"]
+		},
+		"finestra2" : {
+			"descrizione" : "finestra2 lorem",
+			"tags" : ["a","c"]
+		}  
+	}
+}
