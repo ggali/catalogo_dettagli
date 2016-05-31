@@ -1,3 +1,46 @@
+/*
+    Function to carry out the actual PUT request to S3 using the signed request from the app.
+  */
+  function uploadFile(file, signedRequest, url, callback){
+    const xhr = new XMLHttpRequest();
+    console.log("SIGNED", signed);
+    xhr.open('PUT', signedRequest);
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState === 4){
+        if(xhr.status === 200){
+          callback(null);
+        }
+        else{
+          callback(xhr.status);
+        }
+      }
+    };
+    xhr.send(file);
+  }
+
+/*
+  Function to get the temporary signed request from the app.
+  If request successful, continue to upload the file using this signed
+  request.
+*/
+function getSignedRequest(file, callback){
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', `https://secure-tundra-77504.herokuapp.com/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+  xhr.onreadystatechange = () => {
+    if(xhr.readyState === 4){
+      if(xhr.status === 200){
+        const response = JSON.parse(xhr.responseText);
+        uploadFile(file, response.signedRequest, response.url, callback);
+      }
+      else{
+        alert('Could not get signed URL.');
+      }
+    }
+  };
+  xhr.send();
+}
+
+
 var tagsType = ["uno", "due"];
 
 var myApp = angular.module('catalogoApp',['ngTagsInput']);
@@ -71,22 +114,21 @@ myApp.controller('taggerController', ['$scope', '$http', function($scope, $http)
 
   $scope.save = function() {
     $scope.busy = true;
+
+
     
     var storageRef = firebase.storage().ref();
     
     if ($scope.newOne.pdf instanceof FileList) {
-      var filename = $scope.newOne.id + ".pdf";
+      // var filename = $scope.newOne.id + ".pdf";
       // var fileRef = storageRef.child(filename);
       // File or Blob, assume the file is called rivers.jpg
       var file = $scope.newOne.pdf[0];
-      var uploadTask = storageRef.child(filename).put(file);
-
-      uploadTask.on('state_changed', function(snapshot){
-      }, function(error) {
-        
-      }, function() {
-        $scope.newOne.pdf = uploadTask.snapshot.downloadURL;
-        $scope.save();
+      getSignedRequest(file, function(err) {
+        if (!err) {
+          $scope.newOne.pdf = uploadTask.snapshot.downloadURL;
+          $scope.save();
+        }
       });
     } else {
       setTimeout(function() {
