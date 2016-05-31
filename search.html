@@ -26,7 +26,7 @@
             <h5 ng-if="!editable" class="card-title" >{{group.name}}</h5>
             <ol class="list-unstyled">
               <li ng-repeat="tag in group.tags"  style="width:100%">
-                &nbsp;<a ng-mousedown="addTag(tag, $event)">{{tag}}</a>
+                &nbsp;<a ng-click="addTag(tag, $event)">{{tag}}</a>
                 <i ng-show="editable" class="fa fa-trash pull-right"></i>
               </li>
               <li ng-show="editable" class="p-t-1">
